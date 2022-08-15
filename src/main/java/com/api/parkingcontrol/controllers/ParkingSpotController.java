@@ -48,8 +48,14 @@ public class ParkingSpotController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ParkingSpotModel>> getAllParkingSpots(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
-        return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.findAll(pageable));
+    public ResponseEntity<Page<ParkingSpotModel>> getAllParkingSpots(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable, String licensePlateCar){
+        if(licensePlateCar!= null){
+            return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.findCarByPlate(pageable, licensePlateCar));
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.OK).body(parkingSpotService.findAll(pageable));
+        }
+
     }
 
     @GetMapping("/{id}")

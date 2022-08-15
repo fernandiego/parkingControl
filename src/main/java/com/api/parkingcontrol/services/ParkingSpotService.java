@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -48,5 +47,9 @@ public class ParkingSpotService {
     @Transactional
     public void delete(ParkingSpotModel parkingSpotModel) {
         parkingSpotRepository.delete(parkingSpotModel);
+    }
+
+    public Page<ParkingSpotModel> findCarByPlate(Pageable pageable, String licensePlateCar) {
+        return parkingSpotRepository.findByLicensePlateCar(pageable, licensePlateCar);
     }
 }
